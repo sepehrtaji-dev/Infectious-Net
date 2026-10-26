@@ -64,6 +64,8 @@ def main():
     ap.add_argument("--lr-finetune", type=float, default=1e-4)
     ap.add_argument("--patience", type=int, default=6)
     ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--holdout", default=None,
+                    help="sub-dataset folder used only for testing, e.g. Dataset_Gabingan")
     ap.add_argument("--out", default="checkpoints")
     args = ap.parse_args()
 
@@ -72,7 +74,7 @@ def main():
     torch.manual_seed(42)
 
     loaders, class_weights, info = get_dataloaders(
-        args.data, args.img_size, args.batch_size, args.workers)
+        args.data, args.img_size, args.batch_size, args.workers, holdout=args.holdout)
     print("Data:", info)
 
     model = build_model(len(CLASS_NAMES), args.backbone).to(device)

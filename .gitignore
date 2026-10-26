@@ -1,2 +1,4 @@
 Data/
 checkpoints/
+__pycache__/
+.hash_cache.json
